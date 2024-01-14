@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: pleo_dw_billing
+    database: ae-hiring-challenge-project1
+    schema: billing_data
+    tables:
+      - name: invoice
+      - name: invoice_item
