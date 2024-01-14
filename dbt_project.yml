@@ -40,3 +40,12 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: table
+    
+    1staging:
+      +materialized: table
+    
+    2curated_base:
+      +materialized: table
+    
+    3mart:
+      +materialized: table

@@ -1,0 +1,38 @@
+version: 2
+
+models: 
+  - name: pleo_dw_billing__invoice_item
+    description: Invoice Items
+
+    columns:
+      - name: id
+        description: Primary key. ID of an invoice item
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: invoice_id
+        description: Foreign key. ID of an invoice
+      
+      - name: type
+        description: Invoice item type
+
+      - name: period_end
+        description: Invoice line item end date. This invoice item pays for a period ending on this date.
+      
+      - name: period_start
+        description: Invoice line item start date. This invoice item pays for a period starting on this date.
+      
+      - name: amount
+        description: Invoice item amount	
+
+      - name: currency
+        description: Currency of the invoice item amount
+
+      - name: amount_eur
+        description: invoice unique ID
+
+      - name: _synced
+        description: Timestamp of when the raw data was lasted synced in the database	
