@@ -1,0 +1,17 @@
+version: 2
+
+models: 
+  - name: pleo_dw_billing__invoice
+    description: Invoices
+
+    columns:
+      - name: id
+        description: invoice unique ID
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: customer_id
+        description: Customer unique ID
