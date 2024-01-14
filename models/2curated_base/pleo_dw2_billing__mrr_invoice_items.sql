@@ -3,6 +3,7 @@ invoice_items as
 (
   select 
     * 
+    ,cast(date_trunc(date_add(period_start, interval 15 day),month) as date) as billing_period_month
     ,date_diff(period_end,period_start,day) as period_days
   from 
     {{ref('pleo_dw1_billing__invoice_item')}}
@@ -17,8 +18,9 @@ joined as
     inv.customer_id
     ,ini.invoice_id
     ,ini.type
-    ,ini.period_end
+    ,ini.billing_period_month
     ,ini.period_start
+    ,ini.period_end
     ,ini.period_days
     ,ini.amount
     ,safe_divide(ini.amount,ini.period_days) as amount_per_day
