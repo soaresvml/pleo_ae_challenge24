@@ -3,7 +3,7 @@ select
   ,currency
   ,customer_id
   ,sum(amount_per_day) as amount
-  ,sum(amount_eur_per_day) as amount_eur_per_day
+  ,sum(amount_eur_per_day) as amount_eur
 from
   {{ ref('pleo_dw3_billing__mrr_customer_per_day') }}
 group by 
