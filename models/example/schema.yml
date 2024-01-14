@@ -19,3 +19,15 @@ models:
             tests:
                 - unique
                 - not_null
+
+    - name: date_spine_test
+      description: "A model to test the newly created dbt cloud project"
+      columns:
+          - name: id
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+          
+          - name: last_year_months
+            description: "Oh, just last year months dates, no biggie."
