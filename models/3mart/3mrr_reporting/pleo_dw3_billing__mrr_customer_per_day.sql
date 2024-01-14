@@ -53,16 +53,15 @@ final as
   select
      dcb.report_date
     ,dcb.customer_id
-    ,last_value(invoice_id ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as invoice_id
-    ,last_value(amount_per_day ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as amount_per_day
-    ,last_value(currency ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as currency
-    ,last_value(amount_eur_per_day ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as amount_eur_per_day
+    ,last_value(coalesce(ine.invoice_id,ins.invoice_id) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as invoice_id
+    ,last_value(coalesce(ins.amount_per_day,ine.amount_per_day) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as amount_per_day
+    ,last_value(coalesce(ins.currency,ine.currency) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as currency
+    ,last_value(coalesce(ins.amount_eur_per_day,ine.amount_eur_per_day) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as amount_eur_per_day
     -- ,inv.* except(customer_id) 
   from
     dates_customers_base_minmax_trim dcb
-    left join invoices as inv on dcb.report_date=inv.billing_period_month and dcb.customer_id=inv.customer_id
-  -- MRR per day report will support only 180 days, 6 months, of data per Customer
-  qualify row_number() over (partition by customer_id order by report_date desc) <= 180
+    left join invoices as ins on dcb.report_date=cast(ins.period_start as date) and dcb.customer_id=ins.customer_id
+    left join invoices as ine on dcb.report_date=cast(ine.period_end as date) and dcb.customer_id=ine.customer_id
 )
 select
   *
