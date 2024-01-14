@@ -3,7 +3,7 @@ invoice_items as
 (
   select 
     * 
-    ,cast(date_trunc(date_sub(period_end, interval 15 day),month) as date) as billing_period_month
+    ,date_sub(cast(date_trunc(period_end,month) as date), interval 1 month) as billing_period_month
     ,date_diff(period_end,period_start,day) as period_days
   from 
     {{ref('pleo_dw1_billing__invoice_item')}}
@@ -32,9 +32,7 @@ joined as
         left join invoice_items ini on ini.invoice_id=inv.id
     where 
         ini.type='subscription'
-    -- in cases where there might have sprung more than one MRR invoice per month, this will get only the one showing the lastest period in the month
-    qualify row_number() over (partition by ini.billing_period_month order by date_sub(period_end, interval 15 day) desc)=1
-
+        
 )
 select
   *
