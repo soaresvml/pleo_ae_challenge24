@@ -15,7 +15,8 @@ invoice as
 joined as
 (
     select
-        inv.customer_id
+        ini.id as invoice_item_id
+        ,inv.customer_id
         ,ini.invoice_id
         ,ini.type
         ,ini.billing_period_month
