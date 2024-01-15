@@ -5,7 +5,7 @@ models:
     description: Invoice Items
 
     columns:
-      - name: id
+      - name: invoice_item_id
         description: Primary key. ID of an invoice item
         tests:
           - not_null:
