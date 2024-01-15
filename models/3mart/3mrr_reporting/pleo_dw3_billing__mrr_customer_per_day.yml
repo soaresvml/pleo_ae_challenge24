@@ -1,0 +1,36 @@
+version: 2
+
+models: 
+  - name: pleo_dw3_billing__mrr_customer_per_day
+    description: Customer Per Day Metrics
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - report_date
+            - customer_id
+            - invoice_id
+
+    columns:
+      - name: report_date
+        description: Date of the report
+
+      - name: customer_id
+        description: Customer ID
+
+      - name: invoice_id
+        description: Invoice ID
+        tests:
+          - not_null:
+              severity: error
+
+      - name: amount_per_day
+        description: Amount per day
+        tests: 
+          - not_null:
+              severity: error
+
+      - name: currency
+        description: Currency of the amount
+
+      - name: amount_eur_per_day
+        description: Amount in EUR per day

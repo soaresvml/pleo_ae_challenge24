@@ -23,11 +23,11 @@ joined as
         ,ini.period_start
         ,ini.period_end
         ,ini.period_days
-        ,ini.amount
+        ,ifnull(ini.amount,0) as amount
         ,safe_divide(ini.amount,ini.period_days) as amount_per_day
         ,ini.currency
-        ,ini.amount_eur
-        ,safe_divide(ini.amount_eur,ini.period_days) as amount_eur_per_day
+        ,ifnull(ini.amount_eur,0) as amount_eur
+        ,safe_divide(ifnull(ini.amount_eur,0),ini.period_days) as amount_eur_per_day
     from
         invoice inv
         left join invoice_items ini on ini.invoice_id=inv.id
