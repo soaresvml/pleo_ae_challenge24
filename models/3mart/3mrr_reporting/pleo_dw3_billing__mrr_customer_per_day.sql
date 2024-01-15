@@ -53,7 +53,7 @@ final as
   select
      dcb.report_date
     ,dcb.customer_id
-    ,last_value(coalesce(ine.invoice_id,ins.invoice_id) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as invoice_id
+    ,last_value(coalesce(ins.invoice_id,ine.invoice_id) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as invoice_id
     ,last_value(coalesce(ins.amount_per_day,ine.amount_per_day) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as amount_per_day
     ,last_value(coalesce(ins.currency,ine.currency) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as currency
     ,last_value(coalesce(ins.amount_eur_per_day,ine.amount_eur_per_day) ignore nulls) over (partition by dcb.customer_id order by dcb.report_date rows between unbounded preceding and current row) as amount_eur_per_day

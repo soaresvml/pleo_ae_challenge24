@@ -1,7 +1,7 @@
 version: 2
 
 models: 
-  - name: pleo_dw_billing__invoice_item
+  - name: pleo_dw1_billing__invoice_item
     description: Invoice Items
 
     columns:

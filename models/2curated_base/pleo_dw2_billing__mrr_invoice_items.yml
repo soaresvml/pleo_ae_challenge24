@@ -1,0 +1,51 @@
+version: 2
+
+models: 
+  - name: pleo_dw2_billing__mrr_invoice_items
+    description: Invoice Items
+
+    columns:
+      - name: id
+        description: Primary key. ID of an invoice item
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: customer_id
+        description: Customer ID
+
+      - name: invoice_id
+        description: Foreign key. ID of an invoice
+
+      - name: type
+        description: Invoice item type
+
+      - name: billing_period_month
+        description: Billing period month
+
+      - name: period_start
+        description: Start timestamp of the billing period
+
+      - name: period_end
+        description: End timestamp of the billing period
+
+      - name: period_days
+        description: Number of days in the billing period
+
+      - name: amount
+        description: Total amount for the invoice item
+
+      - name: amount_per_day
+        description: Amount per day for the invoice item
+
+      - name: currency
+        description: Currency of the amount
+
+      - name: amount_eur
+        description: Amount in EUR
+
+      - name: amount_eur_per_day
+        description: Amount in EUR per day
+
