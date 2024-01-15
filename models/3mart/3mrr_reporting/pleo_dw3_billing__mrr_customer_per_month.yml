@@ -1,0 +1,21 @@
+version: 2
+
+models: 
+  - name: pleo_dw3_billing__mrr_customer_per_month
+    description: Customer Per Month Metrics
+
+    columns:
+      - name: report_month
+        description: Month of the report
+
+      - name: customer_id
+        description: Customer ID
+
+      - name: amount
+        description: Amount
+
+      - name: currency
+        description: Currency of the amount
+
+      - name: amount_eur
+        description: Amount in EUR
